@@ -1,0 +1,6 @@
+# robots.txt file for KnealsChocolates.com
+User-agent: *
+Disallow: /shop/shop_template
+Disallow: template.php
+Disallow: /practice
+Disallow: /admin

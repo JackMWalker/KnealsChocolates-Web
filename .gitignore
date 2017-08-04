@@ -1,0 +1,5 @@
+phpinclude/app/keys.php
+db_settings_eshop.php
+ssl/
+vendor/
+cgi-bin/

@@ -1,0 +1,2 @@
+ErrorDocument 404 /notfound.html
+DirectoryIndex index.php

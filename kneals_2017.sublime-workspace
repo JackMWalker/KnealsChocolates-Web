@@ -1,0 +1,762 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"a",
+				"rgba()"
+			],
+			[
+				"font",
+				"font-size"
+			],
+			[
+				"text",
+				"textarea"
+			],
+			[
+				"product",
+				"productDisplay"
+			],
+			[
+				"prio",
+				"priority_min_max_ids"
+			],
+			[
+				"high",
+				"highest_id"
+			],
+			[
+				"low",
+				"lowest_id"
+			],
+			[
+				"is_n",
+				"is_null"
+			],
+			[
+				"find",
+				"find_highest_lowest_priority"
+			],
+			[
+				"sto",
+				"stock_value"
+			],
+			[
+				"stock",
+				"stock_value"
+			],
+			[
+				"new",
+				"new_live"
+			],
+			[
+				"next",
+				"next_data"
+			],
+			[
+				"pr",
+				"priority_up"
+			],
+			[
+				"add",
+				"add_error"
+			],
+			[
+				"pri",
+				"priority_query"
+			],
+			[
+				"que",
+				"query"
+			],
+			[
+				"create",
+				"create_preview"
+			],
+			[
+				"margin",
+				"margin-top"
+			],
+			[
+				"box",
+				"box-shadow"
+			],
+			[
+				"back",
+				"background-color"
+			],
+			[
+				"admin",
+				"admin_login"
+			],
+			[
+				"_i",
+				"_logged_in"
+			],
+			[
+				"print",
+				"print_r"
+			],
+			[
+				"_user",
+				"_username"
+			],
+			[
+				"user",
+				"user_id"
+			],
+			[
+				"rule",
+				"rule_value"
+			],
+			[
+				"lib",
+				"lib_path"
+			],
+			[
+				"page",
+				"page_name"
+			],
+			[
+				"choc",
+				"choc_id_string"
+			],
+			[
+				"produ",
+				"product_id_parts"
+			],
+			[
+				"produc",
+				"product_id"
+			],
+			[
+				"tran",
+				"transid"
+			],
+			[
+				"cart_",
+				"cart_id"
+			],
+			[
+				"pro",
+				"product_id"
+			],
+			[
+				"str_rep",
+				"str_replace"
+			],
+			[
+				"i",
+				"italic"
+			],
+			[
+				"fet",
+				"FETCH_ASSOC"
+			],
+			[
+				"row",
+				"rowCount"
+			],
+			[
+				"for",
+				"foreach\tforeach …"
+			],
+			[
+				"td",
+				"td"
+			],
+			[
+				"bacgr",
+				"background-color"
+			],
+			[
+				"total",
+				"total_price"
+			],
+			[
+				"check",
+				"check_product_in_cart"
+			],
+			[
+				"car",
+				"cartID"
+			],
+			[
+				"prod",
+				"productDisplay"
+			],
+			[
+				"pre",
+				"previewImg"
+			],
+			[
+				"border",
+				"border-bottom"
+			],
+			[
+				"product_id",
+				"product_id_list"
+			],
+			[
+				"p",
+				"product_title_array"
+			],
+			[
+				"pay",
+				"payment_id"
+			],
+			[
+				"payment",
+				"paymentId"
+			],
+			[
+				"qua",
+				"quantity_list"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "public_html/css/style.css",
+			"settings":
+			{
+				"buffer_size": 17272,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/Users/jackwalker/Sites/readme.txt",
+			"settings":
+			{
+				"buffer_size": 869,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "phpinclude/inc/header.php",
+			"settings":
+			{
+				"buffer_size": 1931,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "phpinclude/lib/init.php",
+			"settings":
+			{
+				"buffer_size": 398,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "public_html/rtn/view.php",
+			"settings":
+			{
+				"buffer_size": 5724,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/jackwalker/Sites/knealschocolates",
+		"/Users/jackwalker/Sites/knealschocolates/phpinclude",
+		"/Users/jackwalker/Sites/knealschocolates/phpinclude/inc",
+		"/Users/jackwalker/Sites/knealschocolates/phpinclude/lib",
+		"/Users/jackwalker/Sites/knealschocolates/public_html",
+		"/Users/jackwalker/Sites/knealschocolates/public_html/rtn"
+	],
+	"file_history":
+	[
+		"/Users/jackwalker/Sites/knealschocolates/phpinclude/inc/email.php",
+		"/Users/jackwalker/Documents/CelestialBody.pde",
+		"/Users/jackwalker/Documents/product.php",
+		"/Users/jackwalker/Documents/old_mymy.js",
+		"/Users/jackwalker/Downloads/old_mymy.js",
+		"/Users/jackwalker/Downloads/product.php",
+		"/Users/jackwalker/Downloads/init.php",
+		"/Users/jackwalker/Documents/Python/scripts/toggle_local.py",
+		"/Users/jackwalker/Sites/node/mongoose_test/index.js",
+		"/Users/jackwalker/Sites/knealschocolates/admin/js/scripts.js",
+		"/Users/jackwalker/Sites/knealschocolates/lib/classes/BrowseProducts.php",
+		"/Users/jackwalker/Sites/knealschocolates/shop/populate_products.php",
+		"/Users/jackwalker/Sites/knealschocolates/css/style.css",
+		"/Users/jackwalker/Sites/knealschocolates/admin/css/style.css",
+		"/Users/jackwalker/Sites/knealschocolates/admin/admin_login/index.php",
+		"/Users/jackwalker/Sites/knealschocolates/admin/manage_product/index.php",
+		"/Users/jackwalker/Sites/knealschocolates/admin/index.php",
+		"/Users/jackwalker/Sites/knealschocolates/admin/inc/standardfunctions.php",
+		"/Users/jackwalker/Sites/knealschocolates/lib/classes/User.php",
+		"/Users/jackwalker/Sites/knealschocolates/admin/inc/init.php",
+		"/Users/jackwalker/Sites/knealschocolates/lib/classes/Product.php",
+		"/Users/jackwalker/Sites/knealschocolates/admin/view_transactions/index.php",
+		"/Users/jackwalker/Sites/knealschocolates/admin/manage_shop/index.php",
+		"/Users/jackwalker/Sites/knealschocolates/lib/classes/ViewTransactions.php",
+		"/Users/jackwalker/Sites/knealschocolates/lib/classes/Validation.php",
+		"/Users/jackwalker/Sites/knealschocolates/admin/inc/toggle_live_script.php",
+		"/Users/jackwalker/Sites/knealschocolates/admin/inc/stock_script.php",
+		"/Users/jackwalker/Sites/knealschocolates/admin/inc/priority_script.php",
+		"/Users/jackwalker/Sites/knealschocolates/admin/inc/manage_stock.php",
+		"/Users/jackwalker/Sites/knealschocolates/admin/inc/manage_shop_script.php",
+		"/Users/jackwalker/Sites/knealschocolates/admin/admin_register/index.php",
+		"/Users/jackwalker/Sites/knealschocolates/admin/logout/index.php",
+		"/Users/jackwalker/Sites/knealschocolates/lib/classes/Redirect.php",
+		"/Users/jackwalker/Sites/knealschocolates/admin/inc/check_login.php",
+		"/Users/jackwalker/Sites/knealschocolates/lib/classes/Config.php",
+		"/Users/jackwalker/Sites/knealschocolates/contact/index.php",
+		"/Users/jackwalker/Sites/knealschocolates/admin/inc/meta.html",
+		"/Users/jackwalker/Sites/knealschocolates/admin/inc/footer.html",
+		"/Users/jackwalker/Sites/knealschocolates/admin/inc/header.html",
+		"/Users/jackwalker/Sites/knealschocolates/lib/classes/init.php",
+		"/Users/jackwalker/Sites/knealschocolates/admin/view_transaction/index.php",
+		"/Users/jackwalker/Sites/knealschocolates/admin/view_transaction/view_transactions.php",
+		"/Users/jackwalker/Sites/knealschocolates/admin/admin_login.php",
+		"/Users/jackwalker/Sites/knealschocolates/admin/inc/login_script.php",
+		"/Users/jackwalker/Sites/knealschocolates/about/index.php",
+		"/Users/jackwalker/Sites/knealschocolates/basket/inc/cart_functions.php",
+		"/Users/jackwalker/Sites/knealschocolates/basket/index.php",
+		"/Users/jackwalker/Sites/knealschocolates/chocolate_info/index.php",
+		"/Users/jackwalker/Sites/knealschocolates/corporate_weddings/index.php",
+		"/Users/jackwalker/Sites/knealschocolates/index.php",
+		"/Users/jackwalker/Sites/knealschocolates/parties/index.php",
+		"/Users/jackwalker/Sites/knealschocolates/post_packaging/index.php",
+		"/Users/jackwalker/Sites/knealschocolates/rtn/pay.php",
+		"/Users/jackwalker/Sites/knealschocolates/rtn/paypal_setup.php",
+		"/Users/jackwalker/Sites/knealschocolates/rtn/view.php",
+		"/Users/jackwalker/Sites/knealschocolates/shop/populate_shop_script.php",
+		"/Users/jackwalker/Sites/knealschocolates/terms_and_conditions/index.php",
+		"/Users/jackwalker/Sites/knealschocolates/inc/header.php",
+		"/Users/jackwalker/Sites/knealschocolates/inc/meta.html",
+		"/Users/jackwalker/Sites/knealschocolates/shop/product.php",
+		"/Users/jackwalker/Sites/knealschocolates/shop/index.php",
+		"/Users/jackwalker/Sites/knealschocolates/inc/classes/Db.php",
+		"/Users/jackwalker/Sites/knealschocolates/inc/classes/db_settings_eshop.php",
+		"/Users/jackwalker/Sites/knealschocolates/inc/classes/global_database_host.php",
+		"/Users/jackwalker/Sites/knealschocolates/lib/global_database_host.php",
+		"/Users/jackwalker/Sites/knealschocolates/lib/db_settings_eshop.php",
+		"/Users/jackwalker/Sites/knealschocolates.com/lib/db_settings_eshop.php",
+		"/Users/jackwalker/Sites/phpinfo.php",
+		"/Users/jackwalker/Sites/p5/template/index.html",
+		"/Users/jackwalker/Sites/p5/index.html",
+		"/Users/jackwalker/Sites/p5/css/style.css",
+		"/Users/jackwalker/Sites/knealschocolates.com/index.php",
+		"/Users/jackwalker/Sites/knealschocolates.com/css/style.css",
+		"/Users/jackwalker/Sites/knealschocolates.com/inc/standardfuncs.php",
+		"/Users/jackwalker/Sites/knealschocolates.com/basket/inc/cart_header.php",
+		"/Users/jackwalker/Sites/knealschocolates.com/js/script.js",
+		"/Users/jackwalker/Sites/2017 Kneals plan",
+		"/Users/jackwalker/Sites/knealschocolates.com/shop/product.php",
+		"/Users/jackwalker/Sites/knealschocolates.com/shop/index.php",
+		"/Users/jackwalker/Sites/knealschocolates.com/rtn/view.php",
+		"/Users/jackwalker/Sites/knealschocolates.com/post_packaging/index.php",
+		"/Users/jackwalker/Sites/knealschocolates.com/chocolate_info/index.php",
+		"/Users/jackwalker/Sites/knealschocolates.com/basket/index.php",
+		"/Users/jackwalker/Sites/knealschocolates.com/about/index.php",
+		"/Users/jackwalker/Sites/knealschocolates.com/terms_and_conditions/index.php",
+		"/Users/jackwalker/Sites/knealschocolates.com/gallery/index.php",
+		"/Users/jackwalker/Sites/knealschocolates.com/parties/index.php",
+		"/Users/jackwalker/Sites/knealschocolates.com/corporate_weddings/index.php",
+		"/Users/jackwalker/Documents/wedding_form_send_script.js",
+		"/Users/jackwalker/Sites/knealschocolates.com/inc/track_visit.php",
+		"/Users/jackwalker/Sites/knealschocolates.com/inc/email.php",
+		"/Users/jackwalker/Sites/knealschocolates.com/inc/display_price.php",
+		"/Users/jackwalker/Sites/knealschocolates.com/inc/connect.php",
+		"/Users/jackwalker/Documents/sql/individual_chocs.sql",
+		"/Users/jackwalker/Sites/knealschocolates.com/corporate_weddings/wedding_form.php",
+		"/Users/jackwalker/Sites/knealschocolates.com/parties/party_info.php",
+		"/Users/jackwalker/Sites/knealschocolates.com/parties/party_form.php",
+		"/Users/jackwalker/Sites/knealschocolates.com/js/wedding_form_send_script.js",
+		"/Users/jackwalker/Sites/knealschocolates.com/js/calendar_script.js",
+		"/Users/jackwalker/Sites/knealschocolates.com/js/party_form_script.js",
+		"/Users/jackwalker/Sites/knealschocolates.com/js/s3Slider.js",
+		"/Users/jackwalker/Sites/knealschocolates.com/js/form_script.js",
+		"/Users/jackwalker/Sites/knealschocolates.com/js/gallery_script.js",
+		"/Users/jackwalker/Sites/knealschocolates.com/js/fancy_script.js",
+		"/Users/jackwalker/Sites/knealschocolates.com/lib/core/init.php",
+		"/Users/jackwalker/Sites/knealschocolates.com/basket/inc/cart_display.php",
+		"/Users/jackwalker/Sites/knealschocolates.com/inc/meta.html",
+		"/Users/jackwalker/Sites/knealschocolates.com/friends/index.php",
+		"/Users/jackwalker/Sites/knealschocolates.com/basket/inc/cart_functions.php",
+		"/Users/jackwalker/Sites/knealschocolates.com/inc/cart_functions.php",
+		"/Users/jackwalker/Sites/knealschocolates.com/basket/inc/cart_vat.php",
+		"/Users/jackwalker/Sites/knealschocolates.com/inc/header.php",
+		"/Users/jackwalker/Sites/knealschocolates.com/inc/footer.php",
+		"/Users/jackwalker/Sites/knealschocolates.com/inc/form_success.php",
+		"/Users/jackwalker/Sites/knealschocolates.com/inc/Cart.php",
+		"/Users/jackwalker/Sites/knealschocolates.com/lib/db_settings_ecalendar.php",
+		"/Users/jackwalker/Sites/knealschocolates.com/lib/ECalendarDb.php",
+		"/Users/jackwalker/Sites/knealschocolates.com/lib/UnquotedValue.php",
+		"/Users/jackwalker/Documents/Haskell/first_try.hs",
+		"/private/etc/php.ini",
+		"/Users/jackwalker/Sites/knealschocolates.com/rtn/pay.php",
+		"/Users/jackwalker/Sites/knealschocolates.com/app/start.php",
+		"/Users/jackwalker/Sites/knealschocolates.com/app/keys.php",
+		"/Users/jackwalker/Sites/knealschocolates.com/rtn/paypal_setup.php",
+		"/Users/jackwalker/Sites/knealschocolates.com/css/cart.css",
+		"/Users/jackwalker/Sites/knealschocolates.com/js/cart_script.js",
+		"/Users/jackwalker/Sites/knealschocolates.com/app/logs/PayPal.log",
+		"/Users/jackwalker/Sites/kneals.log"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			"/Users/jackwalker/Sites/knealschocolates",
+			"/Users/jackwalker/Sites/knealschocolates.com"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"standardfuncs",
+			"_distR",
+			"_dist",
+			"gravity",
+			"optionAllergy",
+			"product",
+			"option",
+			"db.php",
+			"init.php",
+			"displayAmount",
+			"initialise",
+			"track_visit",
+			"track",
+			"?",
+			"?>",
+			"php",
+			"product_name",
+			"transids",
+			"product_id",
+			"cart_id",
+			"ids",
+			"product_id",
+			"selection",
+			"update_q",
+			"datapi",
+			"quantarr",
+			"pID",
+			"update_cart",
+			"check_product_in_cart",
+			"update_cart",
+			"category",
+			"$id",
+			"visible",
+			"vivible",
+			"count_string",
+			"display_errors",
+			"cartI",
+			"delete_item",
+			"track_visit",
+			"option",
+			"'.",
+			".'",
+			"\"",
+			"prevchocarray",
+			"something went wrong",
+			"live",
+			"sandbox",
+			"/cart",
+			"cart/",
+			"txn_id",
+			"join"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"",
+			"'"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"folders":
+	[
+		{
+			"path": "/Users/jackwalker/Sites/knealschocolates"
+		}
+	],
+	"groups":
+	[
+		{
+			"selected": 4,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "public_html/css/style.css",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 17272,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								6342,
+								6342
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 4754.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/Users/jackwalker/Sites/readme.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 869,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "phpinclude/inc/header.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1931,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								192,
+								192
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "phpinclude/lib/init.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 398,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								129,
+								142
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "public_html/rtn/view.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5724,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								133,
+								146
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "",
+	"replace":
+	{
+		"height": 42.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 176.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
