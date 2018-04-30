@@ -4,6 +4,7 @@ class ContactForm
 	private $_db ;
 	private $_name ;
 	private $_email ;
+	private $_cc ;
 	private $_subject ;
 	private $_message ;
 	private $_receiver ;
@@ -22,26 +23,24 @@ class ContactForm
 			4 => 'Issue'
 		);
 		$this->_email_subject = 'Contact Form Message' ;
-		$this->_receiver = 'kneals-info@knealschocolates.com' ;
+		$this->_receiver = ServerManager::isLive() ? KNEALS_EMAIL : ADMIN_EMAIL;
+		$this->_cc = $details['subject'] == 4 ? ADMIN_EMAIL : false;
 		$this->_name = $details['uname'] ;
 		$this->_email = $details['email'] ;
 		$this->_subject = $this->_subject_keys[$details['subject']] ;
 		$this->_message = $details['message'] ;
 
-		if($this->addToDB())
-		{
-			if($this->send())
-			{
-				$this->_sent = true;
-			}
-		}
+		$this->addToDB();
 	}
 
-	private function send()
+	public function send()
 	{
 		$headers = "MIME-Version: 1.0" . "\r\n";
 		$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 		$headers .= "From: {$this->_email}" . "\r\n";
+		if($this->_cc) {
+			$headers .= "Cc: {$this->_cc}" . "\r\n";
+		}
 		
 		$message = "<html>
 					<head>
@@ -76,7 +75,9 @@ class ContactForm
 					</body>
 					</html>";
 
-		return mail($this->_receiver, $this->_email_subject, $message, $headers);
+		mail($this->_receiver, $this->_email_subject, $message, $headers);
+		$this->_sent = true;
+		return $this->_sent;
 	}
 
 	private function addToDB() 

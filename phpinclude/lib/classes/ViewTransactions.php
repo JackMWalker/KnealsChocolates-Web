@@ -70,7 +70,7 @@ class ViewTransactions
 			    
 			   
 				$query = "SELECT title, price FROM products WHERE id = ?";
-				$result = $db_eshop -> query($query, $product_id);
+				$result = $db_eshop->query($query, $product_id);
 
 				while($row = $result->fetch(PDO::FETCH_ASSOC)) 
 			    {

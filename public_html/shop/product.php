@@ -29,22 +29,102 @@ $pageTitle = $textNav;
 	<meta name="Keywords" content="Kneals, Chocolates, Handmade, Luxury, Confectionery, Wedding, Favours, Gifts">
 	<meta name="Description" content="Kneals Chocolates is all about quality, locally produced handmade chocolates. We are constantly aiming to create new and interesting flavours for you to taste. Our traditional methods and craftsmanship enable us to provide you with a unique tasting experience every time. ">
 
-	<?php include SERVER_ROOT.'inc/meta.html' ; ?>	
+	<?php include SERVER_ROOT.'inc/meta.html' ; ?>
 
-	<script type="text/javascript" src="/js/fancyapp/lib/jquery.mousewheel-3.0.6.pack.js"></script>
-	<script type="text/javascript" src="/js/fancybox/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
-	<link rel="stylesheet" type="text/css" href="/js/fancybox/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js"></script>
 </head>
 <body>
 <?php include SERVER_ROOT.'inc/header.php'; ?>
 
 <div class="container">
 	<div class="row standard-row">
-		<a href="/shop/" class="back-to-shop">Continue Shopping</a>
-		<?php echo $productDisplay;?>
+		<a href="/shop/" class="back-to-shop col-12">Continue Shopping</a>
 	</div>
+
 	<div class="row standard-row">
-		<?php echo $prevChocDisplay;?>
+        <?php
+
+        if(!$product || !$product->is_live) {
+            echo 'A product with this product ID does not exist, go back and try again.';
+        } else {
+            // The main product area
+            echo '<div class="product-container col-10 offset-1">';
+            echo '  <div class="row">';
+            echo '        <div class="product-page-title product-title-container col-10">'.$product->name .' ('. $product->weight.'g)</div>';
+            echo '        <div class="product-page-price product-title-container col-2">'.view_price($product->price).'<br><a href="/post_packaging/" class="tiny-link">(P&P Terms)</a></div>';
+            echo '    <div class="images-container col-8 offset-2 col-sm-4 offset-sm-0">';
+            echo '        <div class="main-product-image"><span>';
+            echo '             <a class="mainimg1" id="singleimg" data-fancybox="gallery" href="/images/uploads/products/'.$product->images[0]->image_name.'">';
+            echo '                  <img alt="'.$product->name.'" class="mainimg img-responsive" src="/images/uploads/products/'.$product->images[0]->image_name.'">';
+            echo '             </a></span>';
+            echo '        </div>';
+            echo '        <div class="thumbnail-product-images">';
+            echo '            <div class="extra-product-image">';
+            echo '              <img width="62" height="47" alt="'.$product->name.'" class="thumb" src="/images/uploads/products/'.$product->images[0]->image_name.'">';
+            echo '            </div>';
+            echo '        </div>';
+            echo '    </div>';
+            echo '    <div class="product-info-container col-10 offset-1 col-sm-8 offset-sm-0">';
+            echo '        <div class="mt-4"><h6>Description:</h6><p>'.$product->description.'</p></div>';
+            if($allergyInfo) echo '        <div class="product-page-allergy"><h6>Allergy Info:</h6><p>'.$allergyInfo.'</p></div>';
+
+            echo '        <div class="row">';
+            echo '            <div class=\'col-9 d-flex flex-column\'>';
+            // If the user has the option to choose from the selection presented
+            if(isset($product->dynamic_selection))
+            {
+                for($i = 0; $i < $product->dynamic_selection_number; $i++)
+                {
+                    echo '<select class="product-selections">';
+                    foreach($product->selection->preview_items as $previewItem)
+                    {
+                        echo '<option value="'.$previewItem->id.'">'.$previewItem->name.'</option>';
+                    }
+                    echo '</select>';
+                }
+            }
+            echo '            </div>';
+            echo '            <div class="col-3">';
+            echo '                <button type="button" class="add-to-cart-button" name="add-to-cart" data-product_id="'.$product->id.'">Add to Basket</button>';
+            echo '            </div>';
+            echo'         </div>';
+
+            echo '    </div>';
+            echo '  </div>';
+            echo '</div>';
+
+            // Display the what's in the box area
+            if(isset($product->selection)) {
+                echo '<div class="col-10 offset-1">';
+                echo '  <h4 class="individual-chocs-title">What\'s in the box</h4>';
+                echo '  <div class="row">';
+
+                foreach($product->selection->preview_items as $preview) {
+                    echo '<div class="p-i-container col-6 col-md-4 col-xl-3">';
+                    echo '  <div class="p-i-title">'.$preview->name.'</div>';
+                    echo '  <div class="p-i-image">';
+                    echo '      <img width="140" height="85" class="p-image" src="/images/uploads/previews/'.$preview->image_name.'">';
+                    echo '  </div>';
+                    echo '  <div class="p-i-desc">';
+                    echo        $preview->description;
+                    echo '  </div>';
+                    if($preview->allergies) {
+                        $allergyString = makeAllergyString($preview->allergies);
+                        if($preview->contains_alcohol) $allergyString.'. Contains alcohol';
+                        echo '<div class="p-i-allergy">';
+                        echo '<b><u>Allergens:</u> ';
+                        echo $allergyString;
+                        echo '</b></div>';
+                    }
+                    echo '</div>';
+                }
+
+                echo '  </div>';
+                echo '</div>';
+            }
+        }
+        ?>
 	</div>
 </div>
 

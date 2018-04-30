@@ -34,16 +34,26 @@ if(Input::exists())
 
 		if($validation->passed())
 		{
-			$details = array(
-				'uname' => Input::get('uname'),
-				'email' => Input::get('email'),
-				'subject' => Input::get('subject'),
-				'message' => Input::get('message')
-			);
+			$data = array();
+			$data['secret'] = RECAPTCHA_SECRET;
+			$data['response'] = Input::get('g-recaptcha-response');
+			$result = APIService::callAPI('POST', 'https://www.google.com/recaptcha/api/siteverify', $data);
+			var_dump($result);	
 
-			$form = new ContactForm($details);
+			$jsonResult = json_decode($result);
 
-			$form_sent = true;
+			if($jsonResult['success']) {
+				$details = array(
+					'uname' => Input::get('uname'),
+					'email' => Input::get('email'),
+					'subject' => Input::get('subject'),
+					'message' => Input::get('message')
+				);
+
+				$form = new ContactForm($details);
+
+				$form_sent = $form->send();
+			}		
 		}
 		else
 		{
@@ -70,7 +80,7 @@ if(Input::exists())
 
 		<section class="container"> <!-- Start of center -->
 			<div class="row standard-row">
-				<div class='col-xs-12 col-sm-9 col-sm-offset-1 bottom-margin'>
+				<div class='col-12 col-sm-9 offset-sm-1 bottom-margin'>
 
 				<?php if($form_sent) { ?>
 				<h2 class="page-title">Thank you for your message</h2>
@@ -108,8 +118,11 @@ if(Input::exists())
 						<textarea id="message" class="form-control" name="message" rows=4 placeholder="Type your message here..." value=""><?php echo addslashes(Input::get('message')); ?></textarea> 
 						<?php if(isset($validation_errors['message'])) echo '<p class="text-danger">'.$validation_errors['message'].'</p>' ?>
 					</div>
+					<div class="form-group">
+						<div class="g-recaptcha" data-sitekey="6Lf_b_oSAAAAAO5aobe1zWjLvOhXO9X2eYdh4abU"></div>
+					</div>
 					<input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
-					<input type="submit" value="Send" class="btn btn-default">
+					<input type="submit" value="Send" class="btn btn-secondary">
 				</form>		
 				<?php } ?>
 			</div>

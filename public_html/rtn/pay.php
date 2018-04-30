@@ -7,6 +7,7 @@ use PayPal\Api\PaymentExecution;
 require SERVER_ROOT.'app/start.php';
 require $_SERVER['DOCUMENT_ROOT'].'/basket/inc/cart_functions.php';
 
+
 $db_cart = EShopDB::inst();
 
 if(!isset($_GET['success'], $_GET['paymentId'], $_GET['PayerID'], $_GET['unid']))
@@ -61,37 +62,35 @@ if($result)
 	$details = $amount->getDetails();
 	$shipping = $details->getShipping();
 
-	$query = "SELECT id, status FROM cart_transactions WHERE uniqid = ?";
-	$result = $db_cart -> query($query, $unid);
+	// get the transaction basket by the uniqid
+    $getURL = BASE_API_URL.'/transactions/basket?uniqid='.$unid;
+    $result1 = APIService::callAPI("GET", $getURL);
+    $jsonResult1 = json_decode($result1);
+    $basketTransaction = $jsonResult1->data;
 
-	while($row = $result->fetch(PDO::FETCH_ASSOC)) 
-	{
-			$id = $row['id'];
-			$status = $row['status'];
-	}
+    // update the status
+    $id = $basketTransaction->id;
+    $data['status'] = $paypal_status;
+    $updateURL = BASE_API_URL.'/transactions/basket/'.$id;
+    APIService::callAPI("POST", $updateURL, $data);
 
-	if($status !== $paypal_status)
-	{
-		$update_query_master = "UPDATE cart_transactions SET status = ? WHERE id = ?";
-		$result_master = $db_cart -> query($update_query_master, $paypal_status, $id);
-	}
+	$data['payer_name'] = $name;
+	$data['address_line1'] = $line1;
+	$data['address_line2'] = $line2;
+	$data['city'] = $city;
+	$data['postal_code'] = $postal_code;
+	$data['payer_id'] = $payerId;
+	$data['payer_email'] = $email;
+	$data['payment_status'] = $paypal_status;
+	$data['transaction_id'] = $id;
+	$data['payment_id'] = $paymentId;
+	$data['price'] = $total;
+	$data['fee'] = 0;
 
-	$query_array['payer_name'] = $name;
-	$query_array['line1'] = $line1;
-	$query_array['line2'] = $line2;
-	$query_array['city'] = $city;
-	$query_array['postal_code'] = $postal_code;
-	$query_array['payer_id'] = $payerId;
-	$query_array['payer_email'] = $email;
-	$query_array['payment_status'] = $status;
-	$query_array['transaction_id'] = $id;
-	$query_array['payment_id'] = $paymentId;
-	$query_array['price'] = $total;
-	$query_array['fee'] = 0;
+    $createURL = BASE_API_URL.'/transactions/paypal';
+    APIService::callAPI("POST", $createURL, $data);
 
-	$db_cart -> insert('paypal_transaction', $query_array);
-
-	delete_cart();
+	setBasketPurchased();
 
 	include SERVER_ROOT.'inc/email.php';
 	
@@ -102,7 +101,7 @@ if($result)
 	}
 	else
 	{
-		print 'Something went wrong. Please contact <a class="email" href="mailto:developer@knealschocolates.com">Kneals technical team</a>.';
+		print 'Something went wrong. Please contact <a class="email" href="mailto:jackwalker3627@gmail.com">Kneals technical team</a>.';
 	}
 }
 

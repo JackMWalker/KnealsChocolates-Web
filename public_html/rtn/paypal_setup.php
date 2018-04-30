@@ -17,8 +17,6 @@ if(!isset($_POST['user_id'], $_POST['price'], $_POST['product_name'], $_POST['qu
 	die();
 }  
 
-$db_cart = EShopDB::inst();
-
 $user_id = $_POST['user_id'];
 $price = $_POST['price'];
 $product_name = $_POST['product_name'];
@@ -26,7 +24,7 @@ $quantity = $_POST['quantity'];
 $shipping = $_POST['shipping'];
 $total = $_POST['total'];
 $subtotal = $total - $shipping;
-$trans_prod_id = $_POST['transids'];
+$basketIds = $_POST['basket_ids'];
 $total_quantity = $_POST['total_quantity'];
 
 $uniqueid = uniqid('kn');
@@ -84,20 +82,17 @@ catch (Exception $e)
 	die();
 }
 
-$trans_prod_ids = implode(';', $trans_prod_id);
-$quantities = implode(';', $quantity);
 
-$query_array['user_id'] = $user_id;
-$query_array['product_id_list'] = $trans_prod_ids;
-$query_array['quantity_list'] = $quantities;
-$query_array['price'] = paypal_price($total);
-$query_array['postage'] = paypal_price($shipping);
-$query_array['number_of_items'] = $total_quantity;
-$query_array['status'] = 'created';
-$query_array['delivered'] = 0;
-$query_array['uniqid'] = $uniqueid;
+$url = BASE_API_URL.'/transactions/basket';
 
-$db_cart -> insert('cart_transactions', $query_array);
+$data['price'] = paypal_price($subtotal);
+$data['postage'] = paypal_price($shipping);
+$data['total_price'] = paypal_price($total);
+$data['status'] = 'CREATED';
+$data['uniqid'] = $uniqueid;
+$data['basket_items'] = $basketIds;
+
+APIService::callAPI("POST", $url, $data);
 
 $approvalUrl = $payment->getApprovalLink();
 

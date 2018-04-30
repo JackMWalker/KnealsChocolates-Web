@@ -22,8 +22,8 @@ require_once (dirname($_SERVER['DOCUMENT_ROOT']).'/phpinclude/lib/init.php');
 
 <section class="container"> <!-- Start of center -->
 	<div class="row standard-row">
-		<h2 class="page-title">Corporate & Wedding Favours</h2>
-		<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+		<h2 class="page-title col-12">Corporate & Wedding Favours</h2>
+		<div class="col-12 col-sm-8 offset-sm-2">
 			<p>
 				Organising a wedding can be stressful when you cannot find exactly what you want. 
 				At Kneals we aim to provide bespoke wedding favours to add something special to your big day.

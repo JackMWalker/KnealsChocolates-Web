@@ -4,148 +4,79 @@ require_once (SERVER_ROOT.'inc/track_visit.php');
 
 /**	Add a product to the users cart
  */
-function add_to_cart($pid, $slct){
-	$user_id = track_visit(); 
-	$db_cart = EShopDB::inst();
+function add_to_cart($pId, $quantity, $selection = null){
+	$userId = track_visit();
+	$url = BASE_API_URL.'/users/'.$userId.'/basket_items';
 
-	$query_array['user_id'] = $user_id;
-	$query_array['product_id'] = $pid;
-	$query_array['quantity'] = 1;
-	$query_array['selection'] = $slct;
+    $data = [
+        'quantity' => $quantity,
+        'productId' => $pId,
+        'selections' => $selection
+    ];
 
-	$db_cart -> insert('cart_current', $query_array);
-	$db_cart -> insert('cart_master', $query_array);
+
+    APIService::callAPI("POST", $url, $data);
 }
 
-/**	Check if the given product is in the cart
+
+/**
+ * Check if the users cart is empty
  */
-function check_product_in_cart($pid, $cid = false, $selection = false){
-	$user_id = track_visit(); 
-	$db_cart = EShopDB::inst();
-
-	//if using cart id
-	if($cid)
-	{
-		$query = "SELECT * FROM cart_current WHERE id = ?";
-		$result = $db_cart -> query($query, $cid);
-
-		if($result->rowCount() > 0)
-		{
-			while($row = $result->fetch(PDO::FETCH_ASSOC)) 
-			{
-				return $row['id']; // if it is in the cart return the cart id as specified.
-			}
-		}
-		else 
-		{
-			return false; // not in cart for some reason
-		}
-	}
-	else // if using pid 
-	{
-		if($selection) // if using pic and selection
-		{
-			$query = "SELECT * FROM cart_current WHERE user_id = ? AND product_id = ? AND selection = ?";
-			$result = $db_cart -> query($query, $user_id, $pid, $selection);
-			if($result->rowCount() > 0)
-			{
-				while($row = $result->fetch(PDO::FETCH_ASSOC)) 
-				{
-					return $row['id']; //return cartid of if exact product with matching selection is already in cart 
-				}
-			}
-			else
-			{
-				return false; 
-			}
-		}
-		else
-		{
-			$query = "SELECT * FROM cart_current WHERE user_id = ? AND product_id = ?";
-			$result = $db_cart -> query($query, $user_id, $pid);
-			
-			if($result->rowCount() > 0)
-			{
-				while($row = $result->fetch(PDO::FETCH_ASSOC)) 
-				{
-					return $row['id'];
-				}
-			}
-			else
-			{
-				return false;
-			}
-		}
-	}
-}
-
-/** Check if the users cart is empty
-*/
 
 function isEmpty(){
 	return count_items() == 0;
 }
 
-/**	Count the number of products currently in this users cart
+/**
+ * Count the number of products currently in this users cart
  */
 function count_items(){
-	$user_id = track_visit(); 
-	$db_cart = EShopDB::inst();
+	$userId = track_visit();
+    $url = BASE_API_URL.'/users/'.$userId.'/basket_items/count';
 
-	$query = "SELECT quantity FROM cart_current WHERE user_id = ?";
-	$result = $db_cart -> query($query, $user_id);
-	$count = 0;	
-	if($result->rowCount() > 0){
-	 	while($row = $result->fetch(PDO::FETCH_ASSOC)) {
-	 		$count += $row['quantity'];
-	 	}
-	}
-	return $count;
+    $result = APIService::callAPI("GET", $url);
+    $jsonResult = json_decode($result);
+
+    if(!isset($jsonResult->data))
+        return 0;
+    else
+        return $jsonResult->data;
 }
  
-/**	Update the current cart
+/**
+ * Update the current cart
  */
-function update_cart($cid, $qty){
-	$user_id = track_visit(); 
-	$db_cart = EShopDB::inst();
+function update_quantity($cartID, $quantity){
+    $userId = track_visit();
+    $url = BASE_API_URL.'/users/'.$userId.'/basket_items/'.$cartID;
 
-	$query = "SELECT quantity FROM cart_current WHERE user_id = ? AND id = ?";
-	$result = $db_cart -> query($query, $user_id, $cid);
+    $data = [
+        'quantity' => $quantity
+    ];
 
-	while($row = $result->fetch(PDO::FETCH_ASSOC)) {
-		$qnty = $row['quantity'];
-	}
-	$qnty += $qty;
-	if($qnty < 0){
-		$qnty = 0;
-	}
-	$update_query = "UPDATE cart_current SET quantity = ? WHERE user_id = ? AND id = ?";
-	$update_query_master = "UPDATE cart_master SET quantity = ? WHERE user_id = ? AND id = ?";
-	$update_result = $db_cart -> query($update_query, $qnty, $user_id, $cid);
-	$update_result_master = $db_cart -> query($update_query_master, $qnty, $user_id, $cid);
-	//update quantity
+    APIService::callAPI("POST", $url, $data);
+
 }
 
 /**	Remove the given item from the cart
  */
-function delete_item($pid, $cid){
-	$user_id = track_visit(); 
-	$db_cart = EShopDB::inst();
+function delete_item($cartID){
+    $userId = track_visit();
+    $url = BASE_API_URL.'/users/'.$userId.'/basket_items/'.$cartID;
 
-	$query = "DELETE FROM cart_current WHERE user_id = ? AND id = ?";
-	$update_query_master = "UPDATE cart_master SET item_status = ? WHERE user_id = ? AND id = ?";
-	$result = $db_cart -> query($query, $user_id, $cid);
-	$result_master = $db_cart -> query($update_query_master, 2, $user_id, $cid);
+    $data = [
+        'status' => "REMOVED",
+    ];
+
+    APIService::callAPI("POST", $url, $data);
+
 }
 
-function delete_cart(){
-	$user_id = track_visit(); 
-	$db_cart = EShopDB::inst();
+function setBasketPurchased(){
+    $userId = track_visit();
+    $url = BASE_API_URL.'/users/'.$userId.'/basket_items/purchase';
 
-	$query = "DELETE FROM cart_current WHERE user_id = ?";
-	$update_query_master = "UPDATE cart_master SET item_status = ? WHERE user_id = ?";
-	$result = $db_cart -> query($query, $user_id);
-	$result_master = $db_cart -> query($update_query_master, 2, $user_id);
+    APIService::callAPI("POST", $url);
 }
 
 //Format choc title 

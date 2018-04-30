@@ -1,27 +1,26 @@
 <?php
 require_once(dirname($_SERVER['DOCUMENT_ROOT']).'/phpinclude/lib/init.php');
 
-$db_eshop = EShopDB::inst(); 
+// Ids to show on the main page
+if(ServerManager::isLocal()) {
+    $ids = [6, 7];
+} else {
+    $ids = [13, 2];
+}
+
 $title_arr = array();
-$id_arr = array();
-$category_arr = array();
+$image_arr = array();
 $price_arr = array();
 
-$sql_query = "SELECT * FROM products WHERE id in (32,2)";
-$sql_result = $db_eshop -> query($sql_query);
+foreach ($ids as $id) {
+    $result = APIService::callAPI('GET', BASE_API_URL.'/products/'.$id);
 
-if ($sql_result->rowCount() > 0)
-{
-	while($row = $sql_result->fetch(PDO::FETCH_ASSOC))
-	{
-		if($row['live'])
-		{
-			array_push($id_arr, $row['id']);
-			array_push($title_arr, $row['title']);
-			array_push($category_arr, $row['category']);
-			array_push($price_arr, format_price($row['price']));
-		}
-	}
+    $jsonResult = json_decode($result);
+    $product = $jsonResult->data;
+
+    array_push($title_arr, $product->name);
+    array_push($price_arr, $product->price);
+    array_push($image_arr, $product->images[0]->image_name);
 }
 
 ?>
@@ -37,9 +36,11 @@ if ($sql_result->rowCount() > 0)
 	<meta name="Keywords" content="Kneals, Chocolates, Handmade, Luxury, Confectionery, Wedding, Favours, Gifts">
 	<meta name="Description" content="Kneals Chocolates is all about quality, locally produced handmade chocolates. We are constantly aiming to create new and interesting flavours for you to taste. Our traditional methods and craftsmanship enable us to provide you with a unique tasting experience every time.">
 	
-	<?php include SERVER_ROOT.'inc/meta.html' ; ?>	
+	<?php include SERVER_ROOT.'inc/meta.html' ; ?>
 
-	<script type="text/javascript">
+    <script type="text/javascript" src="/js/s3Slider.js"></script>
+
+    <script type="text/javascript">
 	    $("document").ready(function() {
 			$('#slider2').s3Slider({
 			    timeOut: 5000 
@@ -52,7 +53,7 @@ if ($sql_result->rowCount() > 0)
 
 		<div class="container"> 
 			<div class="row">
-				<div class="col-xs-12">
+				<div class="col-12">
 					<section id="slider2">
 						<ul id="slider2Content">
 							<li class="slider2Image">
@@ -87,20 +88,20 @@ if ($sql_result->rowCount() > 0)
 			</div>
 		
 			<div class="row home-title">
-				<h1>Handmade Luxury Chocolate Gifts &amp; Favours</h1>
+				<h1 class="col-12">Handmade Luxury Chocolate Gifts &amp; Favours</h1>
 			</div>
 
 			<div class="row bottom-margin">
-				<section class="col-xs-12 col-md-8">
+				<section class="col-12 col-md-8">
 					<div class='instore-container'>
 						<?php 
 						$i = 0;
-						foreach($id_arr as $id)
+						foreach($ids as $id)
 						{
 							print " <div class='product-container'>
 										<a href='/shop/product.php?id={$id}'>
 											<h5>{$title_arr[$i]}</h5>
-											<img src='/images/chocolates/{$category_arr[$i]}/{$id}.png' height=130 alt=''>
+											<img src='/images/uploads/products/".$image_arr[$i]."' height=130 alt=''>
 										</a>
 										<a class='long-button' href='/shop/product.php?id={$id}'>See More</a>
 									</div>";
@@ -110,7 +111,7 @@ if ($sql_result->rowCount() > 0)
 					</div>
 				</section>
 				
-				<section class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-offset-0 col-md-4 home-wedding-poster">
+				<section class="col-10 offset-1 col-sm-8 offset-sm-2 offset-md-0 col-md-4 home-wedding-poster">
 					<a href='/corporate_weddings/'>
 						<img src='/images/page-images/home-banner/wedding-sepia-text.jpg' width=100% height=100% alt="wedding favours">
 					</a>

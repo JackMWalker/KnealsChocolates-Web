@@ -26,7 +26,7 @@ include SERVER_ROOT.'inc/header.php';
 
 	<div class="container"> 
 		<div class="cart-section row standard-row">
-			<form class="form" action="/rtn/paypal_setup.php" method="POST">
+			<form class="form col-10 offset-1" action="/rtn/paypal_setup.php" method="POST">
 				<section id="update-form"> 
 
 				</section>

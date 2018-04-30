@@ -1,5 +1,9 @@
 phpinclude/app/keys.php
+phpinclude/app/params.php
 db_settings_eshop.php
 ssl/
 vendor/
 cgi-bin/
+cms/
+app/
+public_html/js/angular/

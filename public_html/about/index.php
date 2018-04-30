@@ -19,7 +19,7 @@ require_once (dirname($_SERVER['DOCUMENT_ROOT']).'/phpinclude/lib/init.php');
 
 		<section class="container">
 			<div class="row standard-row">
-				<div class='col-xs-12 col-sm-9 col-sm-offset-1 bottom-margin'>
+				<div class='col-12 col-sm-9 offset-sm-1 bottom-margin'>
 					<br>
 					<h2 class="page-title">About Us</h2>
 

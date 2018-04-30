@@ -10,73 +10,48 @@ if(!$pmt_id)
 	die();
 }
 
-$db_cart = EShopDB::inst();
+$url = BASE_API_URL.'/transactions/paypal?payment_id='.$pmt_id;
 
-$query = "SELECT paypal_transaction.line1, paypal_transaction.line2, paypal_transaction.city, paypal_transaction.postal_code, paypal_transaction.payer_email, cart_transactions.price, cart_transactions.postage, cart_transactions.id, cart_transactions.product_id_list, cart_transactions.quantity_list FROM cart_transactions LEFT JOIN paypal_transaction ON paypal_transaction.transaction_id=cart_transactions.id WHERE paypal_transaction.payment_id = ?";
+$results = APIService::callAPI('GET', $url);
 
-$result = $db_cart->query($query, $pmt_id);
+$jsonResults = json_decode($results);
+$transaction = $jsonResults->data;
 
-while($row = $result->fetch(PDO::FETCH_ASSOC)) 
-{
-	$line1 = $row['line1'];
-	@$line2 = $row['line2'];
-	$city = $row['city'];
-	$postage = $row['postage']*100;
-	$postal_code = $row['postal_code'];
-	$payer_email = $row['payer_email'];
-	$price = format_view_price($row['price']);
-	$txn_id = $row['id'];
-	$product_id_list = $row['product_id_list'];
-	$quantity_list = $row['quantity_list'];
-}
-
-$product_ids = explode(';', $product_id_list);
-$quantities = explode(';', $quantity_list);
+$line1 = $transaction->address_line1;
+@$line2 = $transaction->address_line2;
+$city = $transaction->city;
+$postage = $transaction->transaction->postage;
+$postal_code = $transaction->postal_code;
+$payer_email = $transaction->email;
+$price = $transaction->price;
+$txn_id = $transaction->transaction->id;
+$basketItems = $transaction->transaction->basket_items;
 
 $product_title_array = array();
-$product_description_array = array();
 $product_price_array = array();
-$product_chocs_array = array();
+$quantities = array();
 
-foreach ($product_ids as $product_id) 
+foreach ($basketItems as $basketItem)
 {
-	if(strpos($product_id, ':') !== false)
-	{
-		$product_id_parts = explode(':', $product_id);
-		$product_id = $product_id_parts[0];
-		$choc_id_string = $product_id_parts[1];
-	}
+    $temp_title = $basketItem->product->name;
 
-	$query = "SELECT title, price FROM products WHERE id = ?";
-	$result = $db_cart -> query($query, $product_id);
+    if(sizeof($basketItem->selections) > 0)
+    {
+        $temp_title .= '<span style="font-size:12px;"> - ';
 
-	while($row = $result->fetch(PDO::FETCH_ASSOC)) 
-	{
-		$temp_title = $row['title'];
-        if(isset($choc_id_string))
+        foreach ($basketItem->selections as $selection)
         {
-            $temp_title .= '<span style="font-size:12px;"> - ';
-            $chocIDs = explode(',', $choc_id_string);
-            foreach ($chocIDs as $chocID) 
-            {
-                $query2 = "SELECT title FROM individual_chocs WHERE id = ?";
-                $result2 = $db_cart -> query($query2, $chocID);
-                if($result2->rowCount() > 0)
-                {
-                    while($row2 = $result2->fetch(PDO::FETCH_ASSOC))
-                    {
-                        $substr = format_choc_title($row2['title']);
-                        $temp_title .= $substr.', ';
-                    }
-                }
-            }
-            $temp_title = rtrim($temp_title, ', ');
-            $temp_title .= '</span>';
+            $substr = format_choc_title($selection->preview_item->name);
+            $temp_title .= $substr.', ';
         }
-		array_push($product_title_array, $temp_title);
-		array_push($product_price_array, $row['price']);
-	}
+        $temp_title = rtrim($temp_title, ', ');
 
+        $temp_title .= '</span>';
+    }
+
+    array_push($product_title_array, $temp_title);
+    array_push($product_price_array, $basketItem->product->price);
+    array_push($quantities, $basketItem->quantity);
 }
 
 $address = makeAddress($line1, $line2, $city, $postal_code);
@@ -99,12 +74,13 @@ $address = makeAddress($line1, $line2, $city, $postal_code);
 <?php include SERVER_ROOT.'inc/header.php'; ?>
 		<section class="container"> <!-- Start of center -->
 			<div class="row standard-row">
-				<div class="col-xs-12 col-sm-9 col-sm-offset-1">
+				<div class="col-12 col-sm-9 offset-sm-1">
 					<h4 class="legal-title">Thank you for your purchase.</h4>
 					<p class='smaller-txt'>Kneals Reference Number: <?php echo $txn_id; ?></p>
-					<table class="view-table">
+					<table class="view-table w-100">
 						<tr>
 							<th>Product</th>
+                            <th>Price</th>
 							<th>Quantity</th>
 							<th>Total</th>
 						</tr>
@@ -112,20 +88,29 @@ $address = makeAddress($line1, $line2, $city, $postal_code);
 						<?php
 							for($i = 0; $i < count($product_title_array); $i++){
 								print "<tr><td>{$product_title_array[$i]}</td>
+                                       <td>".view_price($product_price_array[$i])."</td>
 									   <td>{$quantities[$i]}</td>
-									   <td>".format_price($quantities[$i]*$product_price_array[$i]).'</td></tr>';
+									   <td>".view_price($quantities[$i]*$product_price_array[$i]).'</td></tr>';
 							}
 						?>
+                        <tr class="total-row">
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td><b>Subtotal</b></td>
+                            <td><b><?php print view_price($price-$postage); ?></b></td>
+                        </tr>
 						<tr class="total-row">
 							<td>&nbsp;</td>
+                            <td>&nbsp;</td>
 							<td><b>Delivery</b></td>
-							<td><b><?php print format_price($postage); ?></b></td>
+							<td><b><?php print view_price($postage); ?></b></td>
 						</tr>
 
 						<tr class="total-row">
 							<td>&nbsp;</td>
+                            <td>&nbsp;</td>
 							<td><b>Total</b></td>
-							<td><?php echo "<b>{$price}</b>"; ?></td>
+							<td><?php print "<b>".view_price($price)."</b>"; ?></td>
 						</tr>
 
 					</table>

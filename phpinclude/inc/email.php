@@ -1,9 +1,9 @@
 <?php
 if(ServerManager::isLive()) {
-    $toCustomer = $query_array['payer_email'];
+    $toCustomer = $email;
     $toBusiness = 'kneals-info@knealschocolates.com';
 } else {
-    $toBusiness = 'admin@knealschocolates.com';
+    $toBusiness = 'jackwalker3626@gmail.com';
     $toCustomer = $toBusiness; 
 }
 
@@ -45,67 +45,39 @@ $custEmail = "<html>
     <th style='padding:10px 2px;'>Total</th>
 </tr>";
 
-$query = "SELECT product_id_list, quantity_list, postage FROM cart_transactions WHERE uniqid = ?";
-$result = $db_cart -> query($query, $unid);
+$url = BASE_API_URL.'/transactions/basket?uniqid='.$unid;
 
-while($row = $result->fetch(PDO::FETCH_ASSOC)) 
+$results = APIService::callAPI('GET', $url);
+
+$jsonResults = json_decode($results);
+$transaction = $jsonResults->data;
+
+$basketItems = $transaction->basket_items;
+$postage = format_view_price($transaction->postage);
+
+foreach ($basketItems as $basketItem)
 {
-	$product_ids_list = $row['product_id_list'];
-	$quantity_list = $row['quantity_list'];
-    $postage = format_price($row['postage'] * 100);
-}
+    $temp_title = $basketItem->product->name;
 
-$product_ids = explode(';', $product_ids_list);
-$quantities = explode(';', $quantity_list);
-
-$i = 0;
-
-foreach ($product_ids as $product_id) 
-{
-    $extra_deets = false;
-    
-    if(strpos($product_id, ':') !== false)
+    if(sizeof($basketItem->selections) > 0)
     {
-        $product_id_parts = explode(':', $product_id);
-        $product_id = $product_id_parts[0];
-        $choc_id_string = $product_id_parts[1];
-        $extra_deets = true;
-    }
-   
-	$query = "SELECT title, price FROM products WHERE id = ?";
-	$result = $db_cart -> query($query, $product_id);
+        $temp_title .= '<span style="font-size:12px;"> - ';
 
-	while($row = $result->fetch(PDO::FETCH_ASSOC)) 
-    {
-        $temp_title = $row['title'];
-        if($extra_deets)
+        foreach ($basketItem->selections as $selection)
         {
-            $temp_title .= '<span style="font-size:12px;"> - ';
-            $chocIDs = explode(',', $choc_id_string);
-            foreach ($chocIDs as $chocID) 
-            {
-                $query2 = "SELECT title FROM individual_chocs WHERE id = ?";
-                $result2 = $db_cart -> query($query2, $chocID);
-                if($result2->rowCount() > 0)
-                {
-                    while($row2 = $result2->fetch(PDO::FETCH_ASSOC))
-                    {
-                        $substr = format_choc_title($row2['title']);
-                        $temp_title .= $substr.', ';
-                    }
-                }
-            }
-            $temp_title = rtrim($temp_title, ', ');
-            $temp_title .= '</span>';
+            $substr = format_choc_title($selection->preview_item->name);
+            $temp_title .= $substr.', ';
         }
+        $temp_title = rtrim($temp_title, ', ');
 
-		$total_row_price = $row['price'] * $quantities[$i];
-		$price_f = format_price($total_row_price);
-		$custEmail .= "<tr><td style='padding:10px 2px;'>{$temp_title}</td><td style='padding:10px 2px; text-align:center; '>{$quantities[$i]}</td><td style='padding:10px 2px;'>{$price_f}</td></tr>";
-		$busEmail .= "<tr><td style='padding:10px 2px;'>{$temp_title}</td><td style='padding:10px 2px; text-align:center; '>{$quantities[$i]}</td><td style='padding:10px 2px; text-align:center;'>{$price_f}</td></tr>";
-	}
+        $temp_title .= '</span>';
+    }
 
-	$i++;
+    $total_row_price = $basketItem->product->price * $basketItem->quantity;
+    $price_f = format_view_price($total_row_price);
+
+    $custEmail .= "<tr><td style='padding:10px 2px;'>{$temp_title}</td><td style='padding:10px 2px; text-align:center; '>{$basketItem->quantity}</td><td style='padding:10px 2px;'>{$price_f}</td></tr>";
+		$busEmail .= "<tr><td style='padding:10px 2px;'>{$temp_title}</td><td style='padding:10px 2px; text-align:center; '>{$basketItem->quantity}</td><td style='padding:10px 2px; text-align:center;'>{$price_f}</td></tr>";
 }
 
 
@@ -118,7 +90,7 @@ $busEmail .= "<tr>
 <tr>
     <td style='padding:10px 2px;'>&nbsp;</td>
     <td style='padding:10px 2px; text-align:right;'><b>Total</b></td>
-    <td style='padding:10px 2px; text-align:center;'><b>&pound;{$query_array['price']}</b></td>
+    <td style='padding:10px 2px; text-align:center;'><b>&pound;{$transaction->total_price}</b></td>
 </tr>
 
 </table>  
@@ -135,7 +107,7 @@ $custEmail .= "<tr>
 <tr>
     <td style='padding:10px 2px;'>&nbsp;</td>
     <td style='padding:10px 2px; text-align:right;'><b>Total</b></td>
-    <td style='padding:10px 2px;'><b>&pound;{$query_array['price']}</b></td>
+    <td style='padding:10px 2px;'><b>&pound;{$transaction->total_price}</b></td>
 </tr>
 
 </table>
@@ -152,7 +124,7 @@ $custEmail .= "<p>If this isn't the correct delivery address, please contact Kne
 <p style='margin-top:2px; font-size:0.9em; font-family:cursive;'>Kneals Chocolates</p>
 <p style='font-family:helvetica;'><i><a href='mailto:kneals-info@knealschocolates.com'>kneals-info@knealschocolates.com</a><br>Phone: 0121 771 2990</i></p>
 
-<p>Kneals Reference Number: {$query_array['transaction_id']}</p>
+<p>Kneals Reference Number: {$transaction->id}</p>
 
 </body>
 </html>";
@@ -161,7 +133,7 @@ $busEmail .= "<br>
 <hr>
 <br>
 <p style='margin-bottom:0px;'>PayPal Transaction ID: {$paymentId}</p>
-<p>Kneals Reference Number: {$query_array['transaction_id']} </p>
+<p>Kneals Reference Number: {$transaction->id} </p>
 
 </body>
 </html>";
